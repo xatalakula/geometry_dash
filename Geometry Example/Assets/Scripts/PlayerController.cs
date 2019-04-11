@@ -2,105 +2,154 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
+    [Header("Jump")]
     public float powerJump;
     public float maxJumpDistance;
+    public float gravityJump;
+    public Vector2 speedJump;
+    public float timeJump;
+    [Space(10)]
+    [Header("Jump Further")]
+    public Vector2 speedJumpFurther;
+    public float timeJumpFurther;
+    [Space(10)]
+    [Header("High Jump")]
+    public float powerHighJump;
+    public float maxHighJumpDistance;
+    public float gravityHighJump;
+    public Vector2 speedHighJump;
+    public float timeHighJump;
+    [Space(10)]
     public float speedMover;
     public float speedTurning;
     public bool canJump;
-    public float gravityJump;
+    public bool isHighJump;
+    //public GameObject cube;
     public GameObject explosion;
     public GameObject runEffect;
+    public int sceneOrder;
+    public bool jumpContinue;
 
-    private float origin;
+    private float origin1;
+    private float origin2;
     private Rigidbody2D r2d;
     private float posY;
-    private float angle;
-    private bool canTurn;
-    private bool isTurning;
+    private bool isJumping;
+    private Vector2 speed;
+    
+    
 
 	// Use this for initialization
 	void Start () {
         r2d = GetComponent<Rigidbody2D>();
         canJump = false;
-        angle = 0;
-        canTurn = true;
+        isHighJump = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Space) && canJump)
+        if (Input.GetKeyDown(KeyCode.J) && canJump)
+        {
+            StartCoroutine(HighJump());
+        }
+        if (Input.GetKeyDown(KeyCode.K) && jumpContinue)
+        {
+            StartCoroutine(JumpFurther());
+        }
+        if (Input.GetKeyDown(KeyCode.K) && canJump)
         {
             StartCoroutine(Jump());
         }
-        /*r2d.AddForce(Vector2.right * speed);
-        if(r2d.velocity.x > maxSpeed)
+        if (isJumping && !isHighJump)
         {
-            r2d.velocity = new Vector2(maxSpeed, r2d.velocity.y);
-        }*/
-        r2d.velocity = new Vector2(speedMover, r2d.velocity.y);
+            r2d.velocity = speed;
+        }else if (isHighJump)
+        {
+            r2d.velocity = speedHighJump;
+        }
+        else
+        {
+            r2d.velocity = new Vector2(speedMover, r2d.velocity.y);
+        }
     }
 
     //fake jump
     IEnumerator Jump()
     {
+        isJumping = true;
         r2d.gravityScale = gravityJump;
         canJump = false;
-        origin = transform.position.y;
-        //StartCoroutine(Turning());
-        while (true)
-        {
-            transform.position = new Vector2(transform.position.x, transform.position.y + powerJump * Time.deltaTime);
-            if(transform.position.y > origin + maxJumpDistance)
-            {
-                transform.position = new Vector2(transform.position.x,origin + maxJumpDistance);
-                break;
-            }
-            yield return null;
-        }
+        speed = speedJump;
+        yield return new WaitForSecondsRealtime(timeJump);
+        r2d.velocity = new Vector2(speedJump.x, -5);
+        isJumping = false;
+    }
+
+    IEnumerator JumpFurther()
+    {
+        isJumping = true;
+        r2d.gravityScale = gravityJump;
+        canJump = false;
+        jumpContinue = false;
+        speed = speedJumpFurther;
+        yield return new WaitForSecondsRealtime(timeJumpFurther);
+        r2d.velocity = new Vector2(speedJumpFurther.x, -5);
+        isJumping = false;
+    }
+
+    IEnumerator HighJump()
+    {
+        isJumping = true;
+        isHighJump = true;
+        r2d.gravityScale = gravityJump;
+        canJump = false;
+        yield return new WaitForSecondsRealtime(timeHighJump);
+        r2d.velocity = new Vector2(speedHighJump.x, -5);
+        isJumping = false;
+        isHighJump = false;
     }
 
     public void Die()
     {
         Instantiate(explosion, transform.position,transform.rotation);
         Destroy(gameObject);
+        SceneManager.LoadScene(sceneOrder);
     }
 
-
-    IEnumerator Turning()
+    public void TurnCube()
     {
-        if (canTurn)
-        {
-            //canTurn = false;
-            angle = angle - 90;
-            Debug.Log(angle);
-            transform.DORotate(new Vector3(0, 0, angle), 0.3f);
-            yield return new WaitForSecondsRealtime(0.3f);
-            //transform.rotation = new Quaternion(0, 0, angle, 1);
-            angle = transform.eulerAngles.z;
-            //StartCoroutine(WaitToTurn());
-        }
+        GetComponentInChildren<Turning>().StartTurn();
     }
 
-    IEnumerator WaitToTurn()
+    public void CancelTurnCube()
     {
-        yield return new WaitForSecondsRealtime(0.5f);
-        canTurn = true;
+        GetComponentInChildren<Turning>().CancelTurning();
+    }
+    
+
+    public void StartHighJump()
+    {
+        StartCoroutine(HighJump());
     }
 
     public void CreateRunEffect()
     {
+        canJump = true;
+        GetComponent<Rigidbody2D>().gravityScale = 4;
         Instantiate(runEffect, transform);
     }
 
 
     public void DestroyRunEffect()
     {
-        if (transform.childCount > 0)
+        if (transform.childCount > 1)
         {
-            Destroy(transform.GetChild(0).gameObject);
+            Destroy(transform.GetChild(1).gameObject);
         }
+        canJump = false;
     }
 }

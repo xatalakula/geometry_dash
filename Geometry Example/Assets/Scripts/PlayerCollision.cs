@@ -20,14 +20,18 @@ public class PlayerCollision : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Ground"))
         {
-            gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
+            playerController.CancelTurnCube();
             playerController.CreateRunEffect();
-            playerController.canJump = true;
+        }
+        else if (other.gameObject.CompareTag("SandHighJump"))
+        {
+            playerController.StartHighJump();
         }
         else if (other.gameObject.CompareTag("Obstacle"))
         {
             playerController.Die();
         }
+        
         
     }
 
@@ -35,12 +39,31 @@ public class PlayerCollision : MonoBehaviour {
 
     void OnCollisionExit2D(Collision2D other)
     {
-        /*if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground"))
         {
-            Debug.Log("1234");
-            GetComponent<PlayerController>().Turning();
-        }*/
+            playerController.TurnCube();
+        }
         playerController.DestroyRunEffect();
-        playerController.canJump = false;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "JumpSymbol")
+        {
+            playerController.jumpContinue = true;
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "JumpSymbol")
+        {
+            playerController.jumpContinue = false;
+        }
     }
 }
