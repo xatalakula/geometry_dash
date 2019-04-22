@@ -31,7 +31,10 @@ public class PlayerCollision : MonoBehaviour {
         {
             playerController.Die();
         }
-        
+        else if (other.gameObject.CompareTag("WallEnd"))
+        {
+            playerController.CreateCompleteEffect();
+        }
         
     }
 

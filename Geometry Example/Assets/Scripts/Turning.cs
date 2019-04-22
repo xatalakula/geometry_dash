@@ -39,7 +39,7 @@ public class Turning : MonoBehaviour {
     {
         isTurning = false;
         int angle = (int)transform.eulerAngles.z;
-        Debug.Log(angle%360);
+        //Debug.Log(angle%360);
         if(angle%360 > 270)
         {
             transform.eulerAngles = new Vector3(0, 0, 270);

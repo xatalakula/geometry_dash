@@ -8,7 +8,6 @@ TagManager:
   - Obstacle
   - SandHighJump
   - WallEnd
-  - Wall End
   - JumpSymbol
   layers:
   - Default

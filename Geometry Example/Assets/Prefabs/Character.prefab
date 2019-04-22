@@ -92,7 +92,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &61082534812893312
 BoxCollider2D:
@@ -141,26 +141,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e41dc37bd6bfeb0428cde1126898d49e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerJump: 10
-  maxJumpDistance: 1.5
-  gravityJump: 1
   speedJump: {x: 5.9, y: 9}
-  timeJump: 0.185
+  timeJump: 0.19
   speedJumpFurther: {x: 5.9, y: 10}
   timeJumpFurther: 0.21
-  powerHighJump: 12
-  maxHighJumpDistance: 3.1
-  gravityHighJump: 1
   speedHighJump: {x: 5.9, y: 10}
-  timeHighJump: 0.3
-  speedMover: 5.9
-  speedTurning: -5
-  canJump: 0
-  isHighJump: 0
+  timeHighJump: 0.35
+  isFlying: 0
+  powerFly: {x: 150, y: 150}
   explosion: {fileID: 1660878804338520, guid: 5320eb72e50a9164099991928c852515, type: 2}
   runEffect: {fileID: 1803971735036890, guid: 972bf08d4346ab1438b6766f9967e2ba, type: 2}
-  sceneOrder: 0
+  completeEffect: {fileID: 1191026567360120, guid: 16220caa46def734ab1103b510cee1ad,
+    type: 2}
+  speedMover: 5.9
+  canJump: 0
+  isHighJump: 0
   jumpContinue: 0
+  sceneOrder: 0
 --- !u!114 &114842467146895988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -206,7 +203,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 06940094c10d5f6498e2c7a9ba678ea0, type: 3}
   m_Color: {r: 0.029195482, g: 0.7941176, b: 0.22438239, a: 1}
   m_FlipX: 0

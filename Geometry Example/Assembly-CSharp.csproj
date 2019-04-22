@@ -64,10 +64,12 @@
      <Compile Include="Assets\Demigiant\DOTweenPro\DOTweenTk2d.cs" />
      <Compile Include="Assets\Scripts\BackgroundLoopers.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\ColorChange.cs" />
      <Compile Include="Assets\Scripts\DestroyByTime.cs" />
      <Compile Include="Assets\Scripts\Mover.cs" />
      <Compile Include="Assets\Scripts\PlayerCollision.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Transformer.cs" />
      <Compile Include="Assets\Scripts\Turning.cs" />
      <Compile Include="Assets\Scripts\Wheeling.cs" />
      <None Include="Assets\Demigiant\DOTweenPro\readme.txt" />

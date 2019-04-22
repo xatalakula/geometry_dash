@@ -7,9 +7,6 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour {
 
     [Header("Jump")]
-    public float powerJump;
-    public float maxJumpDistance;
-    public float gravityJump;
     public Vector2 speedJump;
     public float timeJump;
     [Space(10)]
@@ -18,26 +15,25 @@ public class PlayerController : MonoBehaviour {
     public float timeJumpFurther;
     [Space(10)]
     [Header("High Jump")]
-    public float powerHighJump;
-    public float maxHighJumpDistance;
-    public float gravityHighJump;
     public Vector2 speedHighJump;
     public float timeHighJump;
     [Space(10)]
-    public float speedMover;
-    public float speedTurning;
-    public bool canJump;
-    public bool isHighJump;
-    //public GameObject cube;
+    [Header("Flying")]
+    public bool isFlying;
+    public Vector2 powerFly;
+    [Space(10)]
+    [Header("General Parameters")]
     public GameObject explosion;
     public GameObject runEffect;
-    public int sceneOrder;
+    public GameObject completeEffect;
+    public float speedMover;
+    public bool canJump;
+    public bool isHighJump;
     public bool jumpContinue;
+    public int sceneOrder;
+    
 
-    private float origin1;
-    private float origin2;
     private Rigidbody2D r2d;
-    private float posY;
     private bool isJumping;
     private Vector2 speed;
     
@@ -52,18 +48,29 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.J) && canJump)
+        if (isFlying)
         {
-            StartCoroutine(HighJump());
+            if (Input.GetKey(KeyCode.K))
+            {
+                Fly();
+            }
         }
-        if (Input.GetKeyDown(KeyCode.K) && jumpContinue)
+        else
         {
-            StartCoroutine(JumpFurther());
+            if (Input.GetKeyDown(KeyCode.J) && canJump)
+            {
+                StartCoroutine(HighJump());
+            }
+            if (Input.GetKeyDown(KeyCode.K) && jumpContinue)
+            {
+                StartCoroutine(JumpFurther());
+            }
+            if (Input.GetKeyDown(KeyCode.K) && canJump)
+            {
+                StartCoroutine(Jump());
+            }
         }
-        if (Input.GetKeyDown(KeyCode.K) && canJump)
-        {
-            StartCoroutine(Jump());
-        }
+        
         if (isJumping && !isHighJump)
         {
             r2d.velocity = speed;
@@ -81,7 +88,6 @@ public class PlayerController : MonoBehaviour {
     IEnumerator Jump()
     {
         isJumping = true;
-        r2d.gravityScale = gravityJump;
         canJump = false;
         speed = speedJump;
         yield return new WaitForSecondsRealtime(timeJump);
@@ -92,7 +98,6 @@ public class PlayerController : MonoBehaviour {
     IEnumerator JumpFurther()
     {
         isJumping = true;
-        r2d.gravityScale = gravityJump;
         canJump = false;
         jumpContinue = false;
         speed = speedJumpFurther;
@@ -105,7 +110,6 @@ public class PlayerController : MonoBehaviour {
     {
         isJumping = true;
         isHighJump = true;
-        r2d.gravityScale = gravityJump;
         canJump = false;
         yield return new WaitForSecondsRealtime(timeHighJump);
         r2d.velocity = new Vector2(speedHighJump.x, -5);
@@ -151,5 +155,17 @@ public class PlayerController : MonoBehaviour {
             Destroy(transform.GetChild(1).gameObject);
         }
         canJump = false;
+    }
+
+    public void Fly()
+    {
+        r2d.AddForce(powerFly);
+    }
+
+    public void CreateCompleteEffect()
+    {
+        GameObject effect = Instantiate(completeEffect) as GameObject;
+        effect.transform.position = gameObject.transform.position;
+        Destroy(gameObject, 0.01f);
     }
 }
