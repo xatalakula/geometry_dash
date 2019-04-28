@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour {
     public bool canJump;
     public bool isHighJump;
     public bool jumpContinue;
-    public int sceneOrder;
     
 
     private Rigidbody2D r2d;
@@ -119,18 +118,22 @@ public class PlayerController : MonoBehaviour {
 
     public void Die()
     {
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().StartRepeatScene();
         Instantiate(explosion, transform.position,transform.rotation);
         Destroy(gameObject);
-        SceneManager.LoadScene(sceneOrder);
+        //SceneManager.LoadScene(sceneOrder);
+        //StartCoroutine(RepeatLevel());
     }
 
     public void TurnCube()
     {
-        GetComponentInChildren<Turning>().StartTurn();
+        if (GetComponentInChildren<Turning>() != null)
+            GetComponentInChildren<Turning>().StartTurn();
     }
 
     public void CancelTurnCube()
     {
+        if(GetComponentInChildren<Turning>()!=null)
         GetComponentInChildren<Turning>().CancelTurning();
     }
     
@@ -142,19 +145,25 @@ public class PlayerController : MonoBehaviour {
 
     public void CreateRunEffect()
     {
-        canJump = true;
-        GetComponent<Rigidbody2D>().gravityScale = 4;
-        Instantiate(runEffect, transform);
+        if (!isFlying)
+        {
+            canJump = true;
+            GetComponent<Rigidbody2D>().gravityScale = 4;
+            Instantiate(runEffect, transform);
+        }
     }
 
 
     public void DestroyRunEffect()
     {
-        if (transform.childCount > 1)
+        if (!isFlying)
         {
-            Destroy(transform.GetChild(1).gameObject);
+            if (transform.childCount > 1)
+            {
+                Destroy(transform.GetChild(1).gameObject);
+            }
+            canJump = false;
         }
-        canJump = false;
     }
 
     public void Fly()
@@ -164,6 +173,7 @@ public class PlayerController : MonoBehaviour {
 
     public void CreateCompleteEffect()
     {
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<UIManager>().ShowPauseMenu(true);
         GameObject effect = Instantiate(completeEffect) as GameObject;
         effect.transform.position = gameObject.transform.position;
         Destroy(gameObject, 0.01f);
