@@ -322,7 +322,7 @@ MonoBehaviour:
   speedHighJump: {x: 5.9, y: 10}
   timeHighJump: 3.3
   isFlying: 1
-  powerFly: {x: 0, y: 40}
+  powerFly: {x: 0, y: 35}
   explosion: {fileID: 1660878804338520, guid: 5320eb72e50a9164099991928c852515, type: 2}
   runEffect: {fileID: 0}
   completeEffect: {fileID: 1191026567360120, guid: 16220caa46def734ab1103b510cee1ad,
@@ -331,7 +331,6 @@ MonoBehaviour:
   canJump: 0
   isHighJump: 0
   jumpContinue: 0
-  sceneOrder: 2
 --- !u!114 &114820323671974560
 MonoBehaviour:
   m_ObjectHideFlags: 1

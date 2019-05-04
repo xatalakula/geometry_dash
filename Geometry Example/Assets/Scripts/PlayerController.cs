@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (isFlying)
+        /*if (isFlying)
         {
             if (Input.GetKey(KeyCode.K))
             {
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour {
             {
                 StartCoroutine(Jump());
             }
-        }
+        }*/
         
         if (isJumping && !isHighJump)
         {
@@ -81,6 +81,11 @@ public class PlayerController : MonoBehaviour {
         {
             r2d.velocity = new Vector2(speedMover, r2d.velocity.y);
         }
+    }
+
+    public void StartMove()
+    {
+        StartCoroutine(Jump());
     }
 
     //fake jump

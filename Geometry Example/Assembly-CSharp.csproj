@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\ColorChange.cs" />
      <Compile Include="Assets\Scripts\DestroyByTime.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\GraphicRaycasterEx.cs" />
      <Compile Include="Assets\Scripts\Mover.cs" />
      <Compile Include="Assets\Scripts\PlayerCollision.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
@@ -136,6 +137,12 @@
  </Reference>
  <Reference Include="UnityEditor.VR">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
+ </Reference>
+ <Reference Include="Vuforia.UnityExtensions.Editor">
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/VuforiaSupport/Managed/Editor/Vuforia.UnityExtensions.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Vuforia.UnityExtensions">
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/VuforiaSupport/Managed/Runtime/Vuforia.UnityExtensions.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>

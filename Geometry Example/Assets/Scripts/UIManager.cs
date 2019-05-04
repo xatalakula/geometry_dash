@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour {
     public Image describe;
     public Sprite[] allDescribes;
     private int orderTutorial;
-    private string[] contents = { "PRESS K TO JUMP", "HOLD K TO FLY UP\nRELEASE K TO FLY DOWN","TAP WHILE TOUCHING A RING TO PERFORM A RING JUMP" };
+    private string[] contents = { "TAP THE SCREEN JUMP", "HOLD TO FLY UP\nRELEASE TO FLY DOWN","TAP WHILE TOUCHING A RING TO PERFORM A RING JUMP" };
     [Space(10)]
 
     [Header("Pause Menu")]

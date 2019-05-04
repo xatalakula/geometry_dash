@@ -144,7 +144,7 @@ MonoBehaviour:
   speedJump: {x: 5.9, y: 9}
   timeJump: 0.19
   speedJumpFurther: {x: 5.9, y: 10}
-  timeJumpFurther: 0.21
+  timeJumpFurther: 0.22
   speedHighJump: {x: 5.9, y: 10}
   timeHighJump: 0.35
   isFlying: 0
@@ -157,7 +157,6 @@ MonoBehaviour:
   canJump: 0
   isHighJump: 0
   jumpContinue: 0
-  sceneOrder: 0
 --- !u!114 &114842467146895988
 MonoBehaviour:
   m_ObjectHideFlags: 1

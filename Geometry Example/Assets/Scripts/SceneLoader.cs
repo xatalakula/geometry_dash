@@ -27,7 +27,7 @@ public class SceneLoader : MonoBehaviour {
     IEnumerator LoadNewScene(int scene)
     {
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
 
         // Start an asynchronous operation to load the scene that was passed to the LoadNewScene coroutine.
         AsyncOperation async = SceneManager.LoadSceneAsync(scene);

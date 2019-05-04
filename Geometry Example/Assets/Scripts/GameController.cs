@@ -7,9 +7,11 @@ public class GameController : MonoBehaviour {
 
     public int sceneOrder;
 
+    public static bool isPLaying;
+
 	// Use this for initialization
 	void Start () {
-		
+        isPLaying = true;
 	}
 	
 	// Update is called once per frame
@@ -39,11 +41,13 @@ public class GameController : MonoBehaviour {
     {
         Time.timeScale = 0;
         GetComponent<SoundManager>().PauseMusic();
+        isPLaying = false;
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1;
         GetComponent<SoundManager>().UnPauseMusic();
+        isPLaying = true;
     }
 }
